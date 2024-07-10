@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<script>
+// Define the curve equation
+function f(t) {
+  return t;
+}
+
+function g(t) {
+  return t * t;
+}
+
+// Define the target point
+const targetPoint = { x: 0.5, y: 0.5 };
+
+// Function to find the closest point on the curve
+function findClosestPoint(f, g, targetPoint) {
+  // Step 1: Set up the distance function
+  const distance = (t) => {
+    const x = f(t);
+    const y = g(t);
+    return Math.sqrt(Math.pow(x - targetPoint.x, 2) + Math.pow(y - targetPoint.y, 2));
+  };
+
+  // Step 2: Find the value of 't' that minimizes the distance
+  let t = 0;
+  let minDistance = Infinity;
+  for (let i = 0; i < 100; i++) {
+    const currentDistance = distance(t);
+    if (currentDistance < minDistance) {
+      minDistance = currentDistance;
+    } else {
+      break;
+    }
+    t += 0.01;
+  }
+
+  // Step 3: Calculate the closest point
+  const closestPoint = {
+    x: f(t),
+    y: g(t)
+  };
+
+  return closestPoint;
+}
+
+// Example usage
+const closestPoint = findClosestPoint(f, g, targetPoint);
+console.log("Closest point:", closestPoint);
+</script>
+
+</body>
+</html>
+
+
